@@ -55,3 +55,25 @@ def create_permission(permission: PermissionCreate, db: Session = Depends(get_db
     db.commit()
     db.refresh(new_permission)
     return new_permission
+
+# Modify Permission (PUT)
+@router.put("/permissions/{permission_id}")
+def update_permission(permission_id: int, permission: PermissionUpdate, db: Session = Depends(get_db)):
+    db_permission = db.query(Permission).filter(Permission.id == permission_id).first()
+    if not db_permission:
+        raise HTTPException(status_code=404, detail="Permission not found")
+    
+    db_permission.api_endpoint = permission.api_endpoint or db_permission.api_endpoint
+    db_permission.description = permission.description or db_permission.description
+    db.commit()
+    return {"message": "Permission updated successfully", "permission": db_permission}
+
+# Delete Permission (DELETE)
+@router.delete("/permissions/{permission_id}")
+def delete_permission(permission_id: int, db: Session = Depends(get_db)):
+    db_permission = db.query(Permission).filter(Permission.id == permission_id).first()
+    if not db_permission:
+        raise HTTPException(status_code=404, detail="Permission not found")
+    db.delete(db_permission)
+    db.commit()
+    return {"message": "Permission deleted successfully"}
