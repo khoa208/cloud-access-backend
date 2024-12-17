@@ -19,6 +19,10 @@ class PermissionCreate(BaseModel):
     api_endpoint: str
     description: str
 
+class PermissionUpdate(BaseModel):
+    api_endpoint: Optional[str] = None
+    description: Optional[str] = None
+
 # Subscription Schemas
 class SubscriptionCreate(BaseModel):
     user_id: int
