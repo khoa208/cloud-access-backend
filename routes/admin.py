@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from models import Plan, Permission, Subscription, User
 from database import SessionLocal
-from schemas import PlanCreate, PlanUpdate, PermissionCreate
+from schemas import PlanCreate, PlanUpdate, PermissionCreate, PermissionUpdate
 from auth import verify_access_token
 
 router = APIRouter()
