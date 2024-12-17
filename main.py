@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from database import engine, Base
-from routes import admin, customer, access_control
+from routes import admin, customer, access_control, user
 
 # Initialize Database Tables
 print("Initializing database...")
@@ -14,6 +14,7 @@ app = FastAPI()
 app.include_router(admin.router, prefix="/admin", tags=["Admin"])
 app.include_router(customer.router, prefix="/customer", tags=["Customer"])
 app.include_router(access_control.router, prefix="/access", tags=["Access Control"])
+app.include_router(user.router, prefix="/user", tags=["User"])
 
 @app.get("/")
 def read_root():
