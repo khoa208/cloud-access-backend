@@ -27,3 +27,8 @@ class PermissionUpdate(BaseModel):
 class SubscriptionCreate(BaseModel):
     user_id: int
     plan_id: int
+
+# User Schemas
+class UserCreate(BaseModel):
+    name: str
+    email: str
