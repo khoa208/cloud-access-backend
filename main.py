@@ -1,6 +1,12 @@
 from fastapi import FastAPI
-
+from database import engine, Base
 from routes import admin, customer, access_control
+
+# Initialize Database Tables
+print("Initializing database...")
+Base.metadata.create_all(bind=engine)
+print("Database tables created successfully.")
+
 
 app = FastAPI()
 
