@@ -32,3 +32,9 @@ class Usage(Base):
     user_id = Column(Integer, ForeignKey("users.id"))
     api_endpoint = Column(String)
     request_count = Column(Integer, default=0)
+
+class Permission(Base):
+    __tablename__ = "permissions"
+    id = Column(Integer, primary_key=True, index=True)
+    api_endpoint = Column(String, unique=True, nullable=False)
+    description = Column(String, nullable=True)
