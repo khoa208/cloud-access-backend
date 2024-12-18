@@ -1,5 +1,5 @@
 import json
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Path
 from sqlalchemy.orm import Session
 from models import Subscription, Plan, Usage
 from database import SessionLocal
@@ -13,8 +13,10 @@ def get_db():
     finally:
         db.close()
 
-@router.get("/{user_id}/{api_endpoint}")
-def check_access(user_id: int, api_endpoint: str, db: Session = Depends(get_db)):
+@router.get("/{user_id}/{api_endpoint:path}")
+def check_access(user_id: int,
+    api_endpoint: str = Path(..., description="API endpoint", convert_underscores=False),
+    db: Session = Depends(get_db),):
     print(f"Access route hit: user_id={user_id}, api_endpoint={api_endpoint}")
     # Fetch subscription
     subscription = db.query(Subscription).filter(Subscription.user_id == user_id).first()
