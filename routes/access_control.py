@@ -17,7 +17,7 @@ def get_db():
 def check_access(user_id: int,
     api_endpoint: str = Path(..., description="API endpoint", convert_underscores=False),
     db: Session = Depends(get_db),):
-    print(f"Access route hit: user_id={user_id}, api_endpoint={api_endpoint}")
+    #print(f"Access route hit: user_id={user_id}, api_endpoint={api_endpoint}")
     # Fetch subscription
     subscription = db.query(Subscription).filter(Subscription.user_id == user_id).first()
     if not subscription:
